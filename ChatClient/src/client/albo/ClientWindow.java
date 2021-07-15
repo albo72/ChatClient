@@ -27,35 +27,17 @@ public class ClientWindow {
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipady = 300;
+        setGrid(gridBagConstraints, 0, 0, 0.9, 3, 300);
         panel.add(scrollPane, gridBagConstraints);
         JTextField textMessage = new JTextField();
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.ipady = 10;
+        setGrid(gridBagConstraints, 0, 3, 0.9, 1, 10);
         panel.add(textMessage, gridBagConstraints);
         JTextField textNickname = new JTextField("Nickname");
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = GridBagConstraints.NORTH;
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.ipady = 10;
+        setGrid(gridBagConstraints, 1, 0, 0.1, 1, 10);
         panel.add(textNickname, gridBagConstraints);
         JButton buttonSend = new JButton("Send");
         buttonSend.setSize(40, 20);
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.ipady = 0;
+        setGrid(gridBagConstraints, 1, 3, 0.1, 1, 0);
         buttonSend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +64,16 @@ public class ClientWindow {
         MessagePoller poller = new MessagePoller(textArea);
         Thread thread = new Thread(poller);
         thread.start();
+    }
+
+    private void setGrid(GridBagConstraints gridBagConstraints, int i, int i2, double v, int i3, int i4) {
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.NORTH;
+        gridBagConstraints.gridx = i;
+        gridBagConstraints.gridy = i2;
+        gridBagConstraints.weightx = v;
+        gridBagConstraints.gridheight = i3;
+        gridBagConstraints.ipady = i4;
     }
 
 
