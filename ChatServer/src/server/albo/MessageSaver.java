@@ -10,7 +10,7 @@ public class MessageSaver {
         return listOfMessages;
     }
 
-    public void addToMessages (String message){
+    public void addToMessages(String message) {
         this.listOfMessages.add(message);
     }
 }

@@ -3,7 +3,6 @@ package client.albo;
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class MessagePoller implements Runnable {
     private String messages;
@@ -37,16 +36,5 @@ public class MessagePoller implements Runnable {
         } catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();
         }
-    }
-
-    private void inMessage() throws IOException {
-        Socket socket = new Socket("localhost", 8888);
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        String words = in.readLine();
-        System.out.println(words);
-    }
-
-    public String getMessages() {
-        return messages;
     }
 }
