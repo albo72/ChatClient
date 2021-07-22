@@ -16,7 +16,12 @@ public class Server {
     public Server() {
         Socket clientSocket = null;
         ServerSocket serverSocket = null;
-        MessageSaver messageSaver = new MessageSaver();
+        Message message = new Message();
+        PrivateMessage privateMessage = new PrivateMessage();
+        PrivateMessagesSaving privateMessagesSaving = new PrivateMessagesSaving();
+        SendingMessages sendingMessages = new SendingMessages();
+        SendingPrivateMessages sendingPrivateMessages = new SendingPrivateMessages();
+
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Сервер запущен");
@@ -25,21 +30,20 @@ public class Server {
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 out = new PrintWriter(clientSocket.getOutputStream());
                 String word = in.readLine();
-                Pattern pattern = Pattern.compile("Сервер, хочу все сообщения!.");
-                Matcher matcher = pattern.matcher(word);
-                if (matcher.find()) {
-                    String[] arrayOfWord = word.split("!");
-                    int count = Integer.parseInt(arrayOfWord[1]);
-                    String words = "";
-                    if (count != messageSaver.getListOfMessages().size()) {
-                        for (int i = count; i < messageSaver.getListOfMessages().size(); i++) {
-                            words = words + messageSaver.getListOfMessages().get(i) + "\n";
-                        }
-                    }
-                    out.println(words);
-                    out.flush();
+                Pattern patternForPoller = Pattern.compile("Сервер, хочу все сообщения!.");
+                Matcher matcherForPoller = patternForPoller.matcher(word);
+                Pattern patternForPrivate = Pattern.compile(".+\s/p\s.+");
+                Matcher matcherForPrivate = patternForPrivate.matcher(word);
+                Pattern patternGetPrivate = Pattern.compile("/private\s.+");
+                Matcher matcherGetPrivate = patternGetPrivate.matcher(word);
+                if (matcherForPoller.find()) {
+                    sendingMessages.sendMessagesToClient(message, word, out);
+                } else if (matcherForPrivate.find()) {
+                    privateMessagesSaving.savePrivateMessage(privateMessage.getPrivateMessages(), word);
+                } else if (matcherGetPrivate.find()) {
+                    sendingPrivateMessages.sendPrivateMessagesToClient(privateMessage.getPrivateMessages(), word, out);
                 } else {
-                    messageSaver.addToMessages(word);
+                    message.saveMessage(word);
                 }
                 out.close();
                 in.close();
@@ -54,9 +58,6 @@ public class Server {
                 e.printStackTrace();
             }
         }
-
     }
-
-
 }
 

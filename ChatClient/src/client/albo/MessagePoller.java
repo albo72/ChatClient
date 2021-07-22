@@ -5,8 +5,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class MessagePoller implements Runnable {
-    private String messages;
-    JTextArea textArea;
+    private JTextArea textArea;
 
     public MessagePoller(JTextArea textArea) {
         this.textArea = textArea;
@@ -14,6 +13,7 @@ public class MessagePoller implements Runnable {
 
     @Override
     public void run() {
+        String messages;
         int count = 0;
         try {
             while (true) {
@@ -26,12 +26,11 @@ public class MessagePoller implements Runnable {
                 while ((messages = in.readLine()) != null) {
                     if (!messages.equals("")) {
                         count++;
-                        textArea.append(messages);
-                        textArea.append("\n");
+                        textArea.append(messages + "\n");
                     }
                 }
                 socket.close();
-                Thread.sleep(100);
+                Thread.sleep(300);
             }
         } catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();
