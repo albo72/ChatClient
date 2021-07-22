@@ -8,7 +8,6 @@ public class FieldForNickname {
     private final JTextField fieldForNickname = new JTextField("Nickname");
 
     public void createFieldSettings(){
-        final int[] count = {0};
         fieldForNickname.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
