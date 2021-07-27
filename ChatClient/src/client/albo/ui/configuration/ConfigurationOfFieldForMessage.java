@@ -1,13 +1,12 @@
-package client.albo;
+package client.albo.ui.configuration;
 
 import javax.swing.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public class FieldForMessage {
-    private final JTextField fieldForMessage = new JTextField("Enter your message");
+public class ConfigurationOfFieldForMessage {
 
-    public void createFieldSettings(){
+    public void configurate(JTextField fieldForMessage){
         fieldForMessage.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -21,9 +20,5 @@ public class FieldForMessage {
                 }
             }
         });
-    }
-
-    public JTextField getFieldForMessage() {
-        return fieldForMessage;
     }
 }

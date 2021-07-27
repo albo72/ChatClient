@@ -1,4 +1,4 @@
-package server.albo;
+package server.albo.work.with.messages;
 
 import java.util.ArrayList;
 import java.util.List;

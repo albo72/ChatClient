@@ -1,5 +1,10 @@
 package server.albo;
 
+import server.albo.work.with.messages.MessageDataBase;
+import server.albo.work.with.messages.PrivateMessagesSaving;
+import server.albo.work.with.messages.SendingMessages;
+import server.albo.work.with.messages.SendingPrivateMessages;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,8 +21,7 @@ public class Server {
     public Server() {
         Socket clientSocket = null;
         ServerSocket serverSocket = null;
-        Message message = new Message();
-        PrivateMessage privateMessage = new PrivateMessage();
+        MessageDataBase messageDataBase = new MessageDataBase();
         PrivateMessagesSaving privateMessagesSaving = new PrivateMessagesSaving();
         SendingMessages sendingMessages = new SendingMessages();
         SendingPrivateMessages sendingPrivateMessages = new SendingPrivateMessages();
@@ -37,13 +41,13 @@ public class Server {
                 Pattern patternGetPrivate = Pattern.compile("/private\s.+");
                 Matcher matcherGetPrivate = patternGetPrivate.matcher(word);
                 if (matcherForPoller.find()) {
-                    sendingMessages.sendMessagesToClient(message, word, out);
+                    sendingMessages.sendMessagesToClient(messageDataBase, word, out);
                 } else if (matcherForPrivate.find()) {
-                    privateMessagesSaving.savePrivateMessage(privateMessage.getPrivateMessages(), word);
+                    privateMessagesSaving.savePrivateMessage(messageDataBase.getPrivateMessages(), word);
                 } else if (matcherGetPrivate.find()) {
-                    sendingPrivateMessages.sendPrivateMessagesToClient(privateMessage.getPrivateMessages(), word, out);
+                    sendingPrivateMessages.sendPrivateMessagesToClient(messageDataBase, word, out);
                 } else {
-                    message.saveMessage(word);
+                    messageDataBase.saveMessage(word);
                 }
                 out.close();
                 in.close();

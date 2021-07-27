@@ -1,4 +1,4 @@
-package client.albo;
+package client.albo.ui.configuration;
 
 import javax.swing.*;
 
@@ -8,9 +8,10 @@ public class ClientWindow {
         JFrame frame = new JFrame("Chat");
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Panel panel = new Panel();
-        panel.addComponentsOnPanel();
-        frame.add(panel.getPanel());
+        JPanel panel = new JPanel();
+        PanelConfiguration panelConfiguration = new PanelConfiguration();
+        panelConfiguration.configurate(panel);
+        frame.add(panel);
         frame.setVisible(true);
     }
 }

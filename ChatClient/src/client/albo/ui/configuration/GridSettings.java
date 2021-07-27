@@ -1,4 +1,4 @@
-package client.albo;
+package client.albo.ui.configuration;
 
 import java.awt.*;
 

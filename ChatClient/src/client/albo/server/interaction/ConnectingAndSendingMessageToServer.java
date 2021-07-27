@@ -1,4 +1,4 @@
-package client.albo;
+package client.albo.server.interaction;
 
 import javax.swing.*;
 import java.io.IOException;

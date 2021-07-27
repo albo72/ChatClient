@@ -1,13 +1,12 @@
-package client.albo;
+package client.albo.ui.configuration;
 
 import javax.swing.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public class FieldForNickname {
-    private final JTextField fieldForNickname = new JTextField("Nickname");
+public class ConfigurationOfFieldForNickname {
 
-    public void createFieldSettings(){
+    public void configurate(JTextField fieldForNickname){
         fieldForNickname.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -20,9 +19,5 @@ public class FieldForNickname {
             public void focusLost(FocusEvent e) {
             }
         });
-    }
-
-    public JTextField getFieldForNickname() {
-        return fieldForNickname;
     }
 }
